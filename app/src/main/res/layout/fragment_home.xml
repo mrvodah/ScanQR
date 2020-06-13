@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.ui.home.HomeFragment">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:textColor="#000"
+            android:textSize="30sp"
+            android:layout_margin="20dp"
+            android:textAlignment="center"
+            android:text="Xin chào, Admin"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_name"
+            android:layout_centerHorizontal="true"
+            android:text="Xin Nghỉ" />
+
+        <Button
+            android:id="@+id/button_check_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/button_check_out"
+            android:layout_centerHorizontal="true"
+            android:text="CheckIn" />
+
+        <Button
+            android:id="@+id/button_check_out"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="CheckOut" />
+
+        <TextView
+            android:id="@+id/tv_status"
+            android:textColor="#60E266"
+            android:textSize="30sp"
+            android:layout_below="@id/button"
+            android:layout_margin="20dp"
+            android:textAlignment="center"
+            android:visibility="gone"
+            android:text="Xin nghỉ thành công!"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+</layout>
