@@ -70,6 +70,8 @@ dependencies {
 
     implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$version_retrofit_coroutines_adapter"
 
+    implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
+
     implementation 'com.github.blikoon:QRCodeScanner:0.1.2'
 
     testImplementation 'junit:junit:4.12'

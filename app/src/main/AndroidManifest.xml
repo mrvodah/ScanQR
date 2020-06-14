@@ -25,6 +25,10 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="com.journeyapps.barcodescanner.CaptureActivity"
+            android:screenOrientation="portrait"
+            tools:replace="android:screenOrientation" />
+
         <uses-library android:name="org.apache.http.legacy" android:required="false"/>
 
     </application>

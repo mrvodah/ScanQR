@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.blikoon.qrcodescanner.QrCodeActivity
 import com.example.scanqr.databinding.FragmentHomeBinding
 import com.example.scanqr.network.CheckEntity
+import com.google.zxing.integration.android.IntentIntegrator
 
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -26,6 +27,10 @@ class HomeFragment : Fragment() {
 
     private val REQUEST_SCAN_CHECK_IN = 101
     private val REQUEST_SCAN_CHECK_OUT = 102
+
+    companion object {
+        var isCheckIn = false
+    }
 
     private val viewModel: HomeViewModel by lazy {
         ViewModelProviders.of(this).get(HomeViewModel::class.java)
@@ -54,49 +59,19 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         button_check_in.setOnClickListener {
-            startActivityForResult(Intent(activity, QrCodeActivity::class.java), REQUEST_SCAN_CHECK_IN)
+            isCheckIn = true
+            IntentIntegrator(activity).initiateScan()
+//            startActivityForResult(Intent(activity, QrCodeActivity::class.java), REQUEST_SCAN_CHECK_IN)
         }
 
         button_check_out.setOnClickListener {
-            startActivityForResult(Intent(activity, QrCodeActivity::class.java), REQUEST_SCAN_CHECK_OUT)
+            isCheckIn = false
+            IntentIntegrator(activity).initiateScan()
+//            startActivityForResult(Intent(activity, QrCodeActivity::class.java), REQUEST_SCAN_CHECK_OUT)
         }
 
         button.setOnClickListener {
             tv_status.visibility = View.VISIBLE
-        }
-
-        viewModel.properties.observe(viewLifecycleOwner, Observer {
-            if (it.IsSuccess) {
-                Toast.makeText(activity, "Quét mã thành công!", Toast.LENGTH_LONG).show()
-            } else {
-                Toast.makeText(activity, "Quét mã thất bại!", Toast.LENGTH_LONG).show()
-            }
-            Log.d("TAG", "value: $it")
-        })
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == REQUEST_SCAN_CHECK_IN) {
-            if(resultCode == Activity.RESULT_OK) {
-                if(data != null) {
-                    val value = data.getStringExtra("com.blikoon.qrcodescanner.got_qr_scan_relult")
-                    value?.let {
-                        viewModel.sendRequest(CheckEntity(it, "1"))
-                        Log.d("TAG", "CheckIn: $it")
-                    }
-                }
-            }
-        } else if(requestCode == REQUEST_SCAN_CHECK_OUT) {
-            if(resultCode == Activity.RESULT_OK) {
-                if(data != null) {
-                    val value = data.getStringExtra("com.blikoon.qrcodescanner.got_qr_scan_relult")
-                    value?.let {
-                        viewModel.sendRequest(CheckEntity(it, "2"))
-                        Log.d("TAG", "CheckOut: $it")
-                    }
-                }
-            }
         }
     }
 
