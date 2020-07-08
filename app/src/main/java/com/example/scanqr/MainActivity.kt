@@ -48,9 +48,9 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.properties.observe(this, Observer {
             if (it.IsSuccess) {
-                Toast.makeText(this, "Quét mã thành công!", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Quét mã thành công!", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(this, "Quét mã thất bại!", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Quét mã thất bại!", Toast.LENGTH_SHORT).show()
             }
             Log.d("TAG", "value: $it")
         })
@@ -66,13 +66,17 @@ class MainActivity : AppCompatActivity() {
         val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
         if (result != null) {
             if (result.contents == null) {
-                Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show()
             } else {
 
-                if (HomeFragment.isCheckIn) {
+                if (!HomeFragment.isCheckIn) {
                     viewModel.sendRequest(CheckEntity(result.contents, "1"))
+                    HomeFragment.employeeCode = result.contents
+                    HomeFragment.isCheckIn = true;
                 } else {
                     viewModel.sendRequest(CheckEntity(result.contents, "2"))
+                    HomeFragment.employeeCode = ""
+                    HomeFragment.isCheckIn = false;
                 }
             }
         }
